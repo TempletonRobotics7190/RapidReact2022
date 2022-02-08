@@ -25,12 +25,17 @@ public class Drive extends CommandBase {
   }
 
   @Override
+  public void initialize() {
+    this.timer.start();
+  }
+
+  @Override
   public void execute() {
     this.driveTrain.move(this.ySpeed, this.xSpeed, this.zRotation);
   }
 
   @Override
   public boolean isFinished() {
-    return true;
+    return this.timer.get() >= this.duration;
   }
 }
