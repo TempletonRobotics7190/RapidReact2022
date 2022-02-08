@@ -12,10 +12,10 @@ package frc.robot;
 
 public final class Constants {
   public final class DriveConstants {
-    public static final int FRONT_LEFT_CONTROLLER = 0;
-    public static final int FRONT_RIGHT_CONTROLLER = 0;
-    public static final int BACK_LEFT_CONTROLLER = 0;
-    public static final int BACK_RIGHT_CONTROLLER = 0;
+    public static final int FRONT_LEFT_CONTROLLER = 3;
+    public static final int FRONT_RIGHT_CONTROLLER = 1;
+    public static final int BACK_LEFT_CONTROLLER = 4;
+    public static final int BACK_RIGHT_CONTROLLER = 2;
     
     public static final double NORMAL_SPEED = 0;
     public static final double BOOSTED_SPEED = 0;
@@ -23,5 +23,10 @@ public final class Constants {
   }
   
   public final class HangerConstants {
+  }
+
+  public final class IntakeConstants {
+    public static final int CONTROLLER = 0;
+
   }
 }
