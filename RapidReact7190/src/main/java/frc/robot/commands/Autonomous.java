@@ -3,15 +3,22 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DriveTrain;
 
-class Autonomous extends SequentialCommandGroup {
- public Autonomous(DriveTrain drive) {
-//     addCommands(
-//         new DriveDistance(
-//             AutoConstants.kAutoDriveDistanceInches, AutoConstants.kAutoDriveSpeed, drive),
+public class Autonomous extends SequentialCommandGroup {
+ public Autonomous(DriveTrain driveTrain) {
+    addCommands(
+        new Drive(
+          driveTrain, 0.0, 0.2, 0.0, 1.0
+        ),
+        new Drive(
+          driveTrain, 0.0, -0.2, 0.0, 1.0
+        ),
+        new Drive(
+          driveTrain, 0.0, 0.2, 0.0, 1.0
+        ),
+        new Drive(
+          driveTrain, 0.0, 0.0, 0.0, 1.0
+        )
+    );
+  }
 
-//         new ReleaseHatch(hatch),
-
-//         new DriveDistance(
-//             AutoConstants.kAutoBackupDistanceInches, -AutoConstants.kAutoDriveSpeed, drive));
-  } 
 }

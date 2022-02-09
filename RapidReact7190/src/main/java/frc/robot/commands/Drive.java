@@ -16,8 +16,8 @@ public class Drive extends CommandBase {
   
   public Drive(DriveTrain driveTrain, double ySpeed, double xSpeed, double zRotation, double duration) {
     this.driveTrain = driveTrain;
-    this.ySpeed = ySpeed;
-    this.xSpeed = xSpeed;
+    this.ySpeed = -ySpeed;
+    this.xSpeed = -xSpeed;
     this.zRotation = zRotation;
     this.timer = new Timer();
     this.duration = duration;
