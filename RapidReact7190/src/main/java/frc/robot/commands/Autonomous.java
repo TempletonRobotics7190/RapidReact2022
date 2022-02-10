@@ -5,17 +5,18 @@ import frc.robot.subsystems.DriveTrain;
 
 public class Autonomous extends SequentialCommandGroup {
  public Autonomous(DriveTrain driveTrain) {
+    this.addRequirements(driveTrain);
     addCommands(
-        new Drive(
+        new DriveDuration(
           driveTrain, 0.0, 0.2, 0.0, 1.0
         ),
-        new Drive(
+        new DriveDuration(
           driveTrain, 0.0, -0.2, 0.0, 1.0
         ),
-        new Drive(
+        new DriveDuration(
           driveTrain, 0.0, 0.2, 0.0, 1.0
         ),
-        new Drive(
+        new DriveDuration(
           driveTrain, 0.0, 0.0, 0.0, 1.0
         )
     );

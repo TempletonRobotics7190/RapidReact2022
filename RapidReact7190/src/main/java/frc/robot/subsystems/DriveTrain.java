@@ -21,7 +21,7 @@ public class DriveTrain extends SubsystemBase {
     private MecanumDrive mechanumDrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
     
     
-    public void move(double ySpeed, double xSpeed, double zRotation) {
+    public void move(double xSpeed, double ySpeed, double zRotation) {
         this.mechanumDrive.driveCartesian(ySpeed, xSpeed, zRotation);
         if (Math.abs(xSpeed) + Math.abs(ySpeed) + Math.abs(zRotation) < 0.08) {
             this.frontLeft.set(0.05);

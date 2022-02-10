@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class Drive extends CommandBase {
+public class DriveDuration extends CommandBase {
   private DriveTrain driveTrain;
   
   private double ySpeed;
@@ -14,7 +14,7 @@ public class Drive extends CommandBase {
   private double duration;
   
   
-  public Drive(DriveTrain driveTrain, double ySpeed, double xSpeed, double zRotation, double duration) {
+  public DriveDuration(DriveTrain driveTrain, double ySpeed, double xSpeed, double zRotation, double duration) {
     this.driveTrain = driveTrain;
     this.ySpeed = -ySpeed;
     this.xSpeed = -xSpeed;

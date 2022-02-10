@@ -29,6 +29,7 @@ public class RobotContainer {
 
   // commands
   private final LimeLightRotate limeLightRotate = new LimeLightRotate(driveTrain);
+  private final LimeLightMove limeLightMove = new LimeLightMove(driveTrain);
   private final DefaultDrive defaultDrive = new DefaultDrive(driveTrain, controller);
 
   // The robot's subsystems and commands are defined here...
@@ -54,8 +55,11 @@ public class RobotContainer {
   private void configureButtonBindings() {
     JoystickButton aButton = new JoystickButton(this.controller, XboxController.Button.kA.value);
     JoystickButton bButton = new JoystickButton(this.controller, XboxController.Button.kB.value);
+    JoystickButton xButton = new JoystickButton(this.controller, XboxController.Button.kX.value);
+    JoystickButton yButton = new JoystickButton(this.controller, XboxController.Button.kY.value);
 
     aButton.whenHeld(this.limeLightRotate);
+    xButton.whenHeld(this.limeLightMove);
     bButton.whenHeld(new StartEndCommand(this.intake::run, this.intake::stop));
   }
 

@@ -11,6 +11,7 @@ public class Intake extends SubsystemBase {
 
     public void run() {
         motor.set(0.5);
+        System.out.println("intake started");
     }
 
     public void stop() {
