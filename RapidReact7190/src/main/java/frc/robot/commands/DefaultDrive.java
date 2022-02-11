@@ -31,9 +31,9 @@ public class DefaultDrive extends CommandBase {
     if (fastButton) {
       speed = 0.50;
     }
-    double moveX = this.controller.getX(Hand.kLeft)*speed*reverse; // left, right
-    double moveY = -this.controller.getY(Hand.kLeft)*speed*-reverse; // forward, backward
-    double rotationZ = -this.controller.getX(Hand.kRight)*0.6*reverse; // rotation
+    double moveY = this.controller.getX(Hand.kLeft)*speed*reverse; // left, right
+    double moveX = this.controller.getY(Hand.kLeft)*speed*-reverse; // forward, backward
+    double rotationZ = this.controller.getX(Hand.kRight)*0.6*reverse; // rotation
     this.driveTrain.move(moveX, moveY, rotationZ);
     
     

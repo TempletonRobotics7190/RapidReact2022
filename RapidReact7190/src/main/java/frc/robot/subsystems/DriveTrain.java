@@ -32,8 +32,8 @@ public class DriveTrain extends SubsystemBase {
         // frontLeft.configVelocityMeasurementWindow(1);
         // frontLeft.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_1Ms);
 
-        double velPer100ms = this.frontLeft.getSelectedSensorVelocity(0)/4096;
-        System.out.println(velPer100ms);
+        // double velPer100ms = this.frontLeft.getSelectedSensorVelocity(0)/4096;
+        // System.out.println(velPer100ms);
     }
     
     

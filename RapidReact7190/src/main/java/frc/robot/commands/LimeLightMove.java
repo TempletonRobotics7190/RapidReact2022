@@ -20,9 +20,10 @@ public class LimeLightMove extends CommandBase {
 
     @Override
     public void execute() {
-        double xOffset = this.yOffsetEntry.getDouble(0.0);
-        this.driveTrain.move(LimeLightConstants.SHIFT_CONTR*xOffset, 0.0, 0.0);
-        SmartDashboard.putNumber("LimeLightRotate", LimeLightConstants.SHIFT_CONTR*xOffset);
+        double yOffset = this.yOffsetEntry.getDouble(0.0);
+        this.driveTrain.move(LimeLightConstants.SHIFT_CONTR*yOffset, 0.0, 0.0);
+        System.out.println(LimeLightConstants.SHIFT_CONTR*yOffset);
+        System.out.println("moving limelight");
         
 
     }

@@ -26,11 +26,16 @@ public final class Constants {
   }
 
   public final class IntakeConstants {
-    public static final int CONTROLLER = 0;
+    public static final int CONTROLLER = 1;
 
+  }
+
+  public final class ShooterConstants {
+    public static final int CONTROLLER = 0;
   }
 
   public final class LimeLightConstants {
     public static final float SHIFT_CONTR = -0.1f;
   }
 }
+

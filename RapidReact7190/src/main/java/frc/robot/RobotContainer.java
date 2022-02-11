@@ -11,6 +11,7 @@ import frc.robot.commands.LimeLightMove;
 import frc.robot.commands.LimeLightRotate;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -26,6 +27,7 @@ public class RobotContainer {
   // subsystems
   private final DriveTrain driveTrain = new DriveTrain();
   private final Intake intake = new Intake();
+  private final Shooter shooter = new Shooter();
 
   // commands
   private final LimeLightRotate limeLightRotate = new LimeLightRotate(driveTrain);
@@ -58,16 +60,13 @@ public class RobotContainer {
     JoystickButton xButton = new JoystickButton(this.controller, XboxController.Button.kX.value);
     JoystickButton yButton = new JoystickButton(this.controller, XboxController.Button.kY.value);
 
-    aButton.whenHeld(this.limeLightRotate);
-    xButton.whenHeld(this.limeLightMove);
+    yButton.whenHeld(this.limeLightRotate);
+    aButton.whenHeld(this.limeLightMove);
     bButton.whenHeld(new StartEndCommand(this.intake::run, this.intake::stop));
+    xButton.whenHeld(new StartEndCommand(this.shooter::run, this.shooter::stop));
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
+
   public Command getAutonomousCommand() {
     return new Autonomous(driveTrain);
   }

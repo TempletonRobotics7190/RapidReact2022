@@ -34,6 +34,7 @@ public class DriveDuration extends CommandBase {
     this.driveTrain.move(this.ySpeed, this.xSpeed, this.zRotation);
   }
 
+
   @Override
   public boolean isFinished() {
     return this.timer.get() >= this.duration;
