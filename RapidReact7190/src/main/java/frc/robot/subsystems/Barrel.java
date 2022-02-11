@@ -2,11 +2,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.BarrelConstants;
 
-public class Intake extends SubsystemBase {
-
-    private Spark motor = new Spark(IntakeConstants.CONTROLLER);
+public class Barrel extends SubsystemBase {
+    
+    private Spark motor = new Spark(BarrelConstants.CONTROLLER);
 
 
     public void run() {
@@ -17,5 +17,4 @@ public class Intake extends SubsystemBase {
         motor.set(0.0);
     }
 
-    
 }

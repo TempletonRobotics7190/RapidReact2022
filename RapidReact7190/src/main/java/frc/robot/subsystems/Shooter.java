@@ -8,9 +8,8 @@ public class Shooter extends SubsystemBase {
 
     private Spark motor = new Spark(ShooterConstants.CONTROLLER);
 
-
     public void run() {
-        motor.set(0.5);
+        motor.set(0.75);
     }
 
     public void stop() {

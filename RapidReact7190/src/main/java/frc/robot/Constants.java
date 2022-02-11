@@ -26,8 +26,11 @@ public final class Constants {
   }
 
   public final class IntakeConstants {
-    public static final int CONTROLLER = 1;
+    public static final int CONTROLLER = 2;
 
+  }
+  public final class BarrelConstants {
+    public static final int CONTROLLER = 1;
   }
 
   public final class ShooterConstants {

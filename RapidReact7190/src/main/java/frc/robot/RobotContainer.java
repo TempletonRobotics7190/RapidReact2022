@@ -9,6 +9,7 @@ import frc.robot.commands.Autonomous;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.LimeLightMove;
 import frc.robot.commands.LimeLightRotate;
+import frc.robot.subsystems.Barrel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -28,6 +29,7 @@ public class RobotContainer {
   private final DriveTrain driveTrain = new DriveTrain();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
+  private final Barrel barrel = new Barrel();
 
   // commands
   private final LimeLightRotate limeLightRotate = new LimeLightRotate(driveTrain);
@@ -59,11 +61,14 @@ public class RobotContainer {
     JoystickButton bButton = new JoystickButton(this.controller, XboxController.Button.kB.value);
     JoystickButton xButton = new JoystickButton(this.controller, XboxController.Button.kX.value);
     JoystickButton yButton = new JoystickButton(this.controller, XboxController.Button.kY.value);
+    JoystickButton leftTriggerButton = new JoystickButton(this.controller, XboxController.Button.kBumperLeft.value);
+    JoystickButton rightTriggerButton = new JoystickButton(this.controller, XboxController.Button.kBumperRight.value);
 
     yButton.whenHeld(this.limeLightRotate);
     aButton.whenHeld(this.limeLightMove);
     bButton.whenHeld(new StartEndCommand(this.intake::run, this.intake::stop));
-    xButton.whenHeld(new StartEndCommand(this.shooter::run, this.shooter::stop));
+    leftTriggerButton.whenHeld(new StartEndCommand(this.shooter::run, this.shooter::stop));
+    rightTriggerButton.whenHeld(new StartEndCommand(this.barrel::run, this.barrel::stop));
   }
 
 
