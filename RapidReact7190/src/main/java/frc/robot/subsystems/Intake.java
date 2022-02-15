@@ -10,7 +10,7 @@ public class Intake extends SubsystemBase {
 
 
     public void run() {
-        motor.set(1.0);
+        motor.set(IntakeConstants.SPEED);
     }
 
     public void stop() {

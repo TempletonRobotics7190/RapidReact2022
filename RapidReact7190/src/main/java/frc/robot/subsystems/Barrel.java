@@ -10,7 +10,7 @@ public class Barrel extends SubsystemBase {
 
 
     public void run() {
-        motor.set(1.0);
+        motor.set(BarrelConstants.SPEED);
     }
 
     public void stop() {

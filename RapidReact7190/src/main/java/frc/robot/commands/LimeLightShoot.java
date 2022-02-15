@@ -5,7 +5,7 @@ import frc.robot.subsystems.DriveTrain;
 
 public class LimeLightShoot extends SequentialCommandGroup {
 
-    LimeLightShoot(DriveTrain driveTrain) {
+    public LimeLightShoot(DriveTrain driveTrain) {
         this.addRequirements(driveTrain);
         this.addCommands(
             new LimeLightRotate(driveTrain),

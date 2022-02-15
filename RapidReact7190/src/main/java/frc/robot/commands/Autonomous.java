@@ -8,17 +8,13 @@ public class Autonomous extends SequentialCommandGroup {
     this.addRequirements(driveTrain);
     addCommands(
         new DriveDuration(
-          driveTrain, 0.0, 0.2, 0.0, 1.0
+          driveTrain, 0.2, 0.0, 0.0, 2.0
         ),
         new DriveDuration(
-          driveTrain, 0.0, -0.2, 0.0, 1.0
+          driveTrain, 0.0, -0.2, 0.0, 2.0
         ),
-        new DriveDuration(
-          driveTrain, 0.0, 0.2, 0.0, 1.0
-        ),
-        new DriveDuration(
-          driveTrain, 0.0, 0.0, 0.0, 1.0
-        )
+        new DriveStop(driveTrain)
+       
     );
   }
 

@@ -9,6 +9,7 @@ import frc.robot.commands.Autonomous;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.LimeLightMove;
 import frc.robot.commands.LimeLightRotate;
+import frc.robot.commands.LimeLightShoot;
 import frc.robot.subsystems.Barrel;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -32,14 +33,9 @@ public class RobotContainer {
   private final Barrel barrel = new Barrel();
 
   // commands
-  private final LimeLightRotate limeLightRotate = new LimeLightRotate(driveTrain);
-  private final LimeLightMove limeLightMove = new LimeLightMove(driveTrain);
+  private final LimeLightShoot limeLightShoot = new LimeLightShoot(driveTrain);
   private final DefaultDrive defaultDrive = new DefaultDrive(driveTrain, controller);
 
-  // The robot's subsystems and commands are defined here...
-  // private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  // private final ExampleCommand m_autoCommand = new
-  // ExampleCommand(m_exampleSubsystem);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -61,14 +57,19 @@ public class RobotContainer {
     JoystickButton bButton = new JoystickButton(this.controller, XboxController.Button.kB.value);
     JoystickButton xButton = new JoystickButton(this.controller, XboxController.Button.kX.value);
     JoystickButton yButton = new JoystickButton(this.controller, XboxController.Button.kY.value);
-    JoystickButton leftTriggerButton = new JoystickButton(this.controller, XboxController.Button.kBumperLeft.value);
-    JoystickButton rightTriggerButton = new JoystickButton(this.controller, XboxController.Button.kBumperRight.value);
+    JoystickButton leftBumper = new JoystickButton(this.controller, XboxController.Button.kBumperLeft.value);
+    JoystickButton rightBumper = new JoystickButton(this.controller, XboxController.Button.kBumperRight.value);
 
-    yButton.whenHeld(this.limeLightRotate);
-    aButton.whenHeld(this.limeLightMove);
-    bButton.whenHeld(new StartEndCommand(this.intake::run, this.intake::stop));
-    leftTriggerButton.whenHeld(new StartEndCommand(this.shooter::run, this.shooter::stop));
-    rightTriggerButton.whenHeld(new StartEndCommand(this.barrel::run, this.barrel::stop));
+    yButton.whenHeld(new StartEndCommand(this.shooter::run, this.shooter::stop));
+
+    // reverse controls = bumper left
+    // boost speed = bumper right
+    // aim and shoot = hold right trigger (if let go, cancel operation)
+    // quick shoot =
+    // intake = a
+    // aButton.whenHeld(StartEndCommand(this.intake::run))
+    // magazine = x
+    // 
   }
 
 

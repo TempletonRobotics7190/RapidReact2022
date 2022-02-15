@@ -17,8 +17,13 @@ public final class Constants {
     public static final int BACK_LEFT_CONTROLLER = 4;
     public static final int BACK_RIGHT_CONTROLLER = 2;
     
-    public static final double NORMAL_SPEED = 0;
-    public static final double BOOSTED_SPEED = 0;
+    public static final float NORMAL_SPEED_X = 1.0f;
+    public static final float NORMAL_SPEED_Y = 1.0f;
+    public static final float NORMAL_SPEED_Z = 1.0f;
+    
+    public static final float BOOST_SPEED_X = 1.0f;
+    public static final float BOOST_SPEED_Y = 1.0f;
+    public static final float BOOST_SPEED_Z = 1.0f;
     
   }
   
@@ -28,17 +33,25 @@ public final class Constants {
   public final class IntakeConstants {
     public static final int CONTROLLER = 2;
 
+    public static final float SPEED = 1.0f;
+
   }
   public final class BarrelConstants {
     public static final int CONTROLLER = 1;
+    public static final float SPEED = 0.75f;
   }
 
   public final class ShooterConstants {
     public static final int CONTROLLER = 0;
+
+    public static final float SPEED = 1.0f;
   }
 
   public final class LimeLightConstants {
     public static final float SHIFT_CONTR = -0.1f;
+    public static final float ROT_THRESHOLD = 0.1f;
+    public static final float ROT_BLIND_SPEED = 0.2f;
+    public static final float MOVE_SPEED = 0.2f;
   }
 }
 
