@@ -2,14 +2,14 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.*;
+import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
 
     private Spark motor = new Spark(ShooterConstants.CONTROLLER);
 
     public void run() {
-        motor.set(IntakeConstants.SPEED);
+        motor.set(ShooterConstants.SPEED);
     }
 
     public void stop() {

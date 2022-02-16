@@ -18,26 +18,24 @@ public class DefaultDrive extends CommandBase {
     this.addRequirements(this.driveTrain);
   }
 
+
   @Override
   public void execute() {
-    boolean revButton = this.controller.getXButton();
-    boolean fastButton = this.controller.getBumper(Hand.kRight);
-    
+    boolean isReversed = this.controller.getBumper(Hand.kLeft);
+    boolean isBoosted = this.controller.getBumper(Hand.kRight);
     int reverse = 1;
-    double speed = 0.43; // 43 is good
-    if (revButton) {
+    double speed = DriveConstants.NORMAL_MOVE_SPEED;
+    if (isReversed) {
       reverse = -1;
     }
 
-    if (fastButton) {
-      speed = 0.50;
+    if (isBoosted) {
+      speed = DriveConstants.BOOST_SPEED;
     }
     double moveY = this.controller.getX(Hand.kLeft)*speed*reverse; // left, right
     double moveX = this.controller.getY(Hand.kLeft)*speed*-reverse; // forward, backward
-    double rotationZ = this.controller.getX(Hand.kRight)*0.6*reverse; // rotation
+    double rotationZ = this.controller.getX(Hand.kRight)*reverse*DriveConstants.NORMAL_ROT_SPEED; // rotation
     this.driveTrain.move(moveX, moveY, rotationZ);
-    
-    
   }
   
 }

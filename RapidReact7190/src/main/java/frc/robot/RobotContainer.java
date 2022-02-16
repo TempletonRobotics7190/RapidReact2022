@@ -59,16 +59,21 @@ public class RobotContainer {
     JoystickButton yButton = new JoystickButton(this.controller, XboxController.Button.kY.value);
     JoystickButton leftBumper = new JoystickButton(this.controller, XboxController.Button.kBumperLeft.value);
     JoystickButton rightBumper = new JoystickButton(this.controller, XboxController.Button.kBumperRight.value);
+    JoystickButton rightTrigger = new JoystickButton(this.controller, XboxController.Axis.kRightTrigger.value);
 
     yButton.whenHeld(new StartEndCommand(this.shooter::run, this.shooter::stop));
+    xButton.whenHeld(new StartEndCommand(this.barrel::run, this.barrel::stop));
 
     // reverse controls = bumper left
     // boost speed = bumper right
+    // rightBumper.whenHeld(this.defaultDrive::boost, this.defaultDrive::unBoost);
     // aim and shoot = hold right trigger (if let go, cancel operation)
+    // rightTrigger.whileActiveOnce(this.limeLightShoot);
     // quick shoot =
     // intake = a
-    // aButton.whenHeld(StartEndCommand(this.intake::run))
+    // aButton.whenHeld(new StartEndCommand(this.intake::run, this.intake::stop));
     // magazine = x
+    // xButton.whenHeld(new StartEndCommand(this.barrel::run, this.barrel::stop));
     // 
   }
 

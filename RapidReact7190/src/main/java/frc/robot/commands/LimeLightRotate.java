@@ -29,7 +29,7 @@ public class LimeLightRotate extends CommandBase {
     public void execute() {
         double focused = this.focused.getDouble(0.0);
         double xOffset = this.xOffsetEntry.getDouble(0.0);
-        double rotValue = 0.2;
+        double rotValue = LimeLightConstants.ROT_BLIND_SPEED;
 
         if (focused == 0.0f)
         {
@@ -40,14 +40,15 @@ public class LimeLightRotate extends CommandBase {
         {
                 // We do see the target, execute aiming code
                 rotValue = -LimeLightConstants.SHIFT_CONTR*xOffset;
-                if (rotValue > 0.1) {
-                    rotValue = 0.1;
+                if (rotValue > LimeLightConstants.ROT_THRESHOLD) {
+                    rotValue = LimeLightConstants.ROT_THRESHOLD;
                 }
-                else if (rotValue < -0.1) {
-                    rotValue = -0.1;
+                else if (rotValue < -LimeLightConstants.ROT_THRESHOLD) {
+                    rotValue = -LimeLightConstants.ROT_THRESHOLD;
                 }
 
                 this.driveTrain.move(0.0, 0.0, rotValue);
+
         }
         this.prevRotValue = rotValue;
 
@@ -58,7 +59,7 @@ public class LimeLightRotate extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        if (this.prevRotValue < 0.1) {
+        if (Math.abs(this.prevRotValue) < LimeLightConstants.ROT_THRESHOLD) {
             return true;
         }
         return false;

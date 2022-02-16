@@ -27,11 +27,11 @@ public class LimeLightMove extends CommandBase {
     public void execute() {
         double yOffset = this.yOffsetEntry.getDouble(0.0);
         double moveValue = LimeLightConstants.SHIFT_CONTR*yOffset;
-        if (moveValue > 0.2) {
-            moveValue = 0.2;
+        if (moveValue > LimeLightConstants.MOVE_SPEED) {
+            moveValue = LimeLightConstants.MOVE_SPEED;
         }
-        else if (moveValue < -0.2) {
-            moveValue = -0.2;
+        else if (moveValue < -LimeLightConstants.MOVE_SPEED) {
+            moveValue = -LimeLightConstants.MOVE_SPEED;
         }
         
         this.driveTrain.move(moveValue, 0.0, 0.0);
@@ -40,7 +40,7 @@ public class LimeLightMove extends CommandBase {
     }
     @Override
     public boolean isFinished() {
-        if (this.prevMoveValue < 0.1) {
+        if (this.prevMoveValue < LimeLightConstants.MOVE_THRESHOLD) {
             return true;
         }
         return false;
