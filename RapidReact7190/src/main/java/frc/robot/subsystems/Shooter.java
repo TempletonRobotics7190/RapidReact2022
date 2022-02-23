@@ -6,14 +6,22 @@ import frc.robot.Constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
 
-    private Spark motor = new Spark(ShooterConstants.CONTROLLER);
+    private Spark bigMotor = new Spark(ShooterConstants.BIG_CONTROLLER);
+    private Spark smallMotor = new Spark(ShooterConstants.SMALL_CONTROLLER);
 
     public void run() {
-        motor.set(ShooterConstants.SPEED);
+        bigMotor.set(ShooterConstants.BIG_WHEEL_SPEED);
+        smallMotor.set(ShooterConstants.SMALL_WHEEL_SPEED);
+    }
+
+    public void reverse() {
+        bigMotor.set(ShooterConstants.REVERSE_SPEED);
+        smallMotor.set(ShooterConstants.REVERSE_SPEED);
     }
 
     public void stop() {
-        motor.set(0.0);
+        bigMotor.set(0.0);
+        smallMotor.set(0.0);
     }
     
 }

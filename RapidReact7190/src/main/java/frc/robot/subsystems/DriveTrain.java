@@ -2,9 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-// import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-// import com.ctre.phoenix.sensors.SensorVelocityMeasPeriod;
 
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.Constants.DriveConstants;
@@ -17,7 +15,7 @@ public class DriveTrain extends SubsystemBase {
     private WPI_TalonSRX backLeft = new WPI_TalonSRX(DriveConstants.BACK_LEFT_CONTROLLER);
     private WPI_TalonSRX frontRight = new WPI_TalonSRX(DriveConstants.FRONT_RIGHT_CONTROLLER);
     private WPI_TalonSRX backRight = new WPI_TalonSRX(DriveConstants.BACK_RIGHT_CONTROLLER);
-   
+
     private MecanumDrive mechanumDrive = new MecanumDrive(frontLeft, backLeft, frontRight, backRight);
     
     
@@ -28,20 +26,11 @@ public class DriveTrain extends SubsystemBase {
             this.backLeft.set(0.05);
             this.frontRight.set(-0.05);
             this.backRight.set(-0.05);
-          }
-        // frontLeft.configVelocityMeasurementWindow(1);
-        // frontLeft.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_1Ms);
+        }
+        // System.out.println(frontLeft.getSelectedSensorVelocity());
 
-        // double velPer100ms = this.frontLeft.getSelectedSensorVelocity(0)/4096;
-        // System.out.println(velPer100ms);
     }
     
     
-    
-    
 
-    
-    
-
-    
 }

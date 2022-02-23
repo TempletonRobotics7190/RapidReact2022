@@ -1,14 +1,15 @@
 package frc.robot.commands;
 
+import java.util.HashMap;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.Constants.LimeLightConstants;
-// import frc.robot.Constants.*;
 import frc.robot.subsystems.DriveTrain;
+
+
 
 public class LimeLightRotate extends CommandBase {
     private NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -17,51 +18,70 @@ public class LimeLightRotate extends CommandBase {
 
     private DriveTrain driveTrain;
 
-    private double prevRotValue;
+    private boolean foundTarget = false;
 
-    public LimeLightRotate(DriveTrain driveTrain) {
+    public float blindSpeed;
+    public float smallSpeed;
+    public float stopThreshold;
+    public float offsetFraction;
+    public float smallThreshold;
+
+    public LimeLightRotate(DriveTrain driveTrain, HashMap<String, Float> settings) {
         this.driveTrain = driveTrain;
+        this.blindSpeed = settings.get("blind speed");
+        this.smallSpeed = settings.get("small speed");
+        this.stopThreshold = settings.get("stop threshold");
+        this.offsetFraction = settings.get("offset fraction");
+        this.smallThreshold = settings.get("small threshold");
         this.addRequirements(driveTrain);
-        this.prevRotValue = 0.0;
     }
 
     @Override
     public void execute() {
-        double focused = this.focused.getDouble(0.0);
-        double xOffset = this.xOffsetEntry.getDouble(0.0);
-        double rotValue = LimeLightConstants.ROT_BLIND_SPEED;
+        float focused = (float) this.focused.getDouble(0.0);
+        float xOffset = (float) this.xOffsetEntry.getDouble(0.0);
+        double rotValue;
 
         if (focused == 0.0f)
         {
                 // We don't see the target, seek for the target by spinning in place at a safe speed.
-                this.driveTrain.move(0.0, 0.0, rotValue);
+                rotValue = this.blindSpeed;
         }
         else
         {
-                // We do see the target, execute aiming code
-                rotValue = -LimeLightConstants.SHIFT_CONTR*xOffset;
-                if (rotValue > LimeLightConstants.ROT_THRESHOLD) {
-                    rotValue = LimeLightConstants.ROT_THRESHOLD;
-                }
-                else if (rotValue < -LimeLightConstants.ROT_THRESHOLD) {
-                    rotValue = -LimeLightConstants.ROT_THRESHOLD;
-                }
+            // offset is below threshold for moving at fractional speed
+            if (Math.abs(xOffset) < this.smallThreshold) {
+                if (xOffset < 0)
+                    rotValue = -this.smallSpeed;
+                else 
+                    rotValue = this.smallSpeed;
+            }
+            // move at fractional speed
+            else {
+                rotValue = this.offsetFraction*xOffset;
+            }
 
-                this.driveTrain.move(0.0, 0.0, rotValue);
+            // have we found target
+            if (Math.abs(xOffset) < this.stopThreshold) {
+                this.foundTarget = true;
+            }
+                
 
         }
-        this.prevRotValue = rotValue;
+        this.driveTrain.move(0.0, 0.0, rotValue);
 
-        
+
         
 
     }
 
     @Override
     public boolean isFinished() {
-        if (Math.abs(this.prevRotValue) < LimeLightConstants.ROT_THRESHOLD) {
-            return true;
-        }
-        return false;
+        return this.foundTarget;
+    }
+
+    @Override
+    public void end(boolean interupted) {
+        this.foundTarget = false;
     }
 }

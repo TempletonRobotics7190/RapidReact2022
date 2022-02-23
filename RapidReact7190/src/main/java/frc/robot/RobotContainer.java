@@ -5,8 +5,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.LimeLightConstants;
 import frc.robot.commands.Autonomous;
 import frc.robot.commands.DefaultDrive;
+import frc.robot.commands.FlushBalls;
 import frc.robot.commands.LimeLightMove;
 import frc.robot.commands.LimeLightRotate;
 import frc.robot.commands.LimeLightShoot;
@@ -34,6 +36,11 @@ public class RobotContainer {
 
   // commands
   private final LimeLightShoot limeLightShoot = new LimeLightShoot(driveTrain);
+  private final FlushBalls flushBalls = new FlushBalls(this.shooter, this.barrel, this.intake);
+
+  private final LimeLightMove limeLightMove = new LimeLightMove(driveTrain, LimeLightConstants.MOVE_SETTINGS_DEFAULT);
+  private final LimeLightRotate limeLightRotate = new LimeLightRotate(driveTrain, LimeLightConstants.ROT_SETTINGS_PRECISE);
+
   private final DefaultDrive defaultDrive = new DefaultDrive(driveTrain, controller);
 
 
@@ -60,13 +67,19 @@ public class RobotContainer {
     JoystickButton leftBumper = new JoystickButton(this.controller, XboxController.Button.kBumperLeft.value);
     JoystickButton rightBumper = new JoystickButton(this.controller, XboxController.Button.kBumperRight.value);
     JoystickButton rightTrigger = new JoystickButton(this.controller, XboxController.Axis.kRightTrigger.value);
+    JoystickButton leftTrigger = new JoystickButton(this.controller, XboxController.Axis.kLeftTrigger.value);
 
-    yButton.whenHeld(new StartEndCommand(this.shooter::run, this.shooter::stop));
-    xButton.whenHeld(new StartEndCommand(this.barrel::run, this.barrel::stop));
+    xButton.whenHeld(new StartEndCommand(this.intake::run, this.intake::stop));
+    bButton.whenHeld(new StartEndCommand(this.barrel::run, this.barrel::stop));
+    aButton.whenHeld(this.flushBalls);
 
+    // leftBumper.whileActiveOnce(this.limeLightRotate);
+    // rightBumper.whileActiveOnce(this.limeLightMove);
+
+    leftTrigger.whileHeld(new StartEndCommand(this.shooter::run, this.shooter::stop));
+    rightTrigger.whileActiveOnce(this.limeLightShoot);
     // reverse controls = bumper left
     // boost speed = bumper right
-    // rightBumper.whenHeld(this.defaultDrive::boost, this.defaultDrive::unBoost);
     // aim and shoot = hold right trigger (if let go, cancel operation)
     // rightTrigger.whileActiveOnce(this.limeLightShoot);
     // quick shoot =

@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import java.util.HashMap;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -15,34 +17,61 @@ public class LimeLightMove extends CommandBase {
 
     private double prevMoveValue;
 
+    private boolean foundTarget = false;
+
+    public float defaultSpeed;
+    public float smallThreshold;
+    public float smallSpeed;
+    public float stopThreshold;
 
 
-    public LimeLightMove(DriveTrain driveTrain) {
+    public LimeLightMove(DriveTrain driveTrain, HashMap<String, Float> settings) {
         this.driveTrain = driveTrain;
+        this.defaultSpeed = settings.get("default speed");
+        this.smallThreshold = settings.get("small threshold");
+        this.smallSpeed = settings.get("small speed");
+        this.stopThreshold = settings.get("stop threshold");
+
         this.addRequirements(driveTrain);
         this.prevMoveValue = 0.0;
     }
 
     @Override
     public void execute() {
-        double yOffset = this.yOffsetEntry.getDouble(0.0);
-        double moveValue = LimeLightConstants.SHIFT_CONTR*yOffset;
-        if (moveValue > LimeLightConstants.MOVE_SPEED) {
-            moveValue = LimeLightConstants.MOVE_SPEED;
+        float yOffset = (float) this.yOffsetEntry.getDouble(0.0);
+        float moveValue;
+        // offset is below threshold for moving at default speed
+        if (Math.abs(yOffset) < this.smallThreshold) {
+            if (yOffset < 0)
+                moveValue = this.smallSpeed;
+            else 
+                moveValue = -this.smallSpeed;
+            
         }
-        else if (moveValue < -LimeLightConstants.MOVE_SPEED) {
-            moveValue = -LimeLightConstants.MOVE_SPEED;
+        // move at default speed
+        else {
+            if (yOffset < 0)
+                moveValue = this.defaultSpeed;
+            else 
+                moveValue = -this.defaultSpeed;
+            
         }
-        
-        this.driveTrain.move(moveValue, 0.0, 0.0);
-        this.prevMoveValue = moveValue;
 
+        // have we found target
+        if (Math.abs(yOffset) < this.stopThreshold) {
+            this.foundTarget = true;
+        }
+        this.driveTrain.move(moveValue, 0.0, 0.0);
+            
     }
     @Override
     public boolean isFinished() {
-        if (this.prevMoveValue < LimeLightConstants.MOVE_THRESHOLD) {
-            return true;
-        }
-        return false;
+        return this.foundTarget;
     }
+
+    @Override
+    public void end(boolean interupted) {
+        this.foundTarget = false;
+    }
+    
 }

@@ -9,47 +9,94 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public final class Constants {
-  public final class DriveConstants {
+  public static final class DriveConstants {
     public static final int FRONT_LEFT_CONTROLLER = 3;
     public static final int FRONT_RIGHT_CONTROLLER = 1;
     public static final int BACK_LEFT_CONTROLLER = 4;
     public static final int BACK_RIGHT_CONTROLLER = 2;
     
-    public static final float NORMAL_MOVE_SPEED = 0.43f;
-    public static final float NORMAL_ROT_SPEED = 0.6f;
-    
-    public static final float BOOST_SPEED = 0.7f;
+    public static final float ROT_SPEED = 0.6f;
+
+    public static final float NORMAL_MOVE_SPEED = 0.50f;
+    public static final float BOOST_MOVE_SPEED = 1.0f;
     
   }
   
-  public final class HangerConstants {
+  public static final class HangerConstants {
   }
 
   public final class IntakeConstants {
     public static final int CONTROLLER = 2;
 
     public static final float SPEED = 1.0f;
+    public static final float REVERSE_SPEED = -0.5f;
+
 
   }
-  public final class BarrelConstants {
-    public static final int CONTROLLER = 1;
-    public static final float SPEED = -0.75f;
+  public static final class BarrelConstants {
+    public static final int CONTROLLER = 3;
+    public static final float SPEED = -0.35f;
+    public static final float REVERSE_SPEED = 0.35f;
   }
 
-  public final class ShooterConstants {
-    public static final int CONTROLLER = 0;
+  public static final class ShooterConstants {
+    public static final int BIG_CONTROLLER = 0;
+    public static final int SMALL_CONTROLLER = 1;
 
-    public static final float SPEED = -0.75f;
+    public static final float BIG_WHEEL_SPEED = -0.65f;
+    public static final float SMALL_WHEEL_SPEED = -0.65f;
+
+    public static final float REVERSE_SPEED = 0.45f;
   }
 
-  public final class LimeLightConstants {
-    public static final float SHIFT_CONTR = -0.1f;
-    public static final float ROT_THRESHOLD = 0.1f;
-    public static final float ROT_BLIND_SPEED = 0.2f;
-    public static final float MOVE_SPEED = 0.2f;
-    public static final float MOVE_THRESHOLD = 0.1f;
+  public static final class LimeLightConstants {
+
+    // Rotate
+    public static final HashMap<String, Float> ROT_SETTINGS_PRECISE = new HashMap<String, Float>(Map.of(
+      // does not see tape? move at constant spee
+      "blind speed", 0.2f,
+
+      // sees tape and not within threshold
+      "offset fraction", 0.2f,
+
+      // within this threshold? move at small speed
+      "small threshold", 10.0f,
+      "small speed", 0.1f,
+
+      // within the stop threshold? stop
+      "stop threshold", 0.1f
+    ));
+    public static final HashMap<String, Float> ROT_SETTINGS_ROUGH = new HashMap<String, Float>(Map.of(
+      // does not see tape? move at constant spee
+      "blind speed", 0.0f,
+
+      // sees tape and not within threshold
+      "offset fraction", 0.0f,
+
+      // within this threshold? move at small speed
+      "small threshold", 10.0f,
+      "small speed", 0.0f,
+
+      // within the stop threshold? stop
+      "stop threshold", 0.0f
+    ));
+
+    // Move
+    public static final HashMap<String, Float> MOVE_SETTINGS_DEFAULT = new HashMap<String, Float>(Map.of(
+      // sees the tape far away
+      "default speed", 0.4f,
+
+      // within this threshold? move at small speed
+      "small threshold", 10.0f,
+      "small speed", 0.1f,
+
+      // within the stop threshold? stop
+      "stop threshold", 0.1f
+    ));
   }
 }
 
