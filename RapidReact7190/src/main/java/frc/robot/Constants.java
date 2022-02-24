@@ -3,7 +3,7 @@
  * constants. This class should not be used for any other purpose. All constants should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
 
@@ -19,7 +19,7 @@ public final class Constants {
     public static final int BACK_LEFT_CONTROLLER = 4;
     public static final int BACK_RIGHT_CONTROLLER = 2;
     
-    public static final float ROT_SPEED = 0.6f;
+    public static final float ROT_SPEED = 0.4f;
 
     public static final float NORMAL_MOVE_SPEED = 0.50f;
     public static final float BOOST_MOVE_SPEED = 1.0f;
@@ -72,17 +72,17 @@ public final class Constants {
     ));
     public static final HashMap<String, Float> ROT_SETTINGS_ROUGH = new HashMap<String, Float>(Map.of(
       // does not see tape? move at constant spee
-      "blind speed", 0.0f,
+      "blind speed", 0.4f,
 
       // sees tape and not within threshold
-      "offset fraction", 0.0f,
+      "offset fraction", 0.5f,
 
       // within this threshold? move at small speed
-      "small threshold", 10.0f,
-      "small speed", 0.0f,
+      "small threshold", 20.0f,
+      "small speed", 0.2f,
 
       // within the stop threshold? stop
-      "stop threshold", 0.0f
+      "stop threshold", 0.3f
     ));
 
     // Move
