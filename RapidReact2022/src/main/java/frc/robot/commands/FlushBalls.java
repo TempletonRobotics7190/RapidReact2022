@@ -24,12 +24,14 @@ public class FlushBalls extends CommandBase {
     public void execute() {
         this.shooter.reverse();
         this.barrel.reverse();
+        this.intake.reverse();
     }
 
     @Override
     public void end(boolean interupted) {
         this.shooter.stop();
         this.barrel.stop();
+        this.intake.stop();
     }
     
 }

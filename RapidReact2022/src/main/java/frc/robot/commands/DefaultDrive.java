@@ -18,7 +18,6 @@ public class DefaultDrive extends CommandBase {
     this.addRequirements(this.driveTrain);
   }
 
-
   @Override
   public void execute() {
     boolean isReversed = this.controller.getBumper(Hand.kLeft);
