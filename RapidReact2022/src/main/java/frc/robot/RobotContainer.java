@@ -26,22 +26,22 @@ import frc.robot.subsystems.Shooter;
  */
 public class RobotContainer {
   // controller
-  private final XboxController controller = new XboxController(0);
+  public final XboxController controller = new XboxController(0);
 
   // subsystems
-  private final DriveTrain driveTrain = new DriveTrain();
-  private final Intake intake = new Intake();
-  private final Shooter shooter = new Shooter();
-  private final Barrel barrel = new Barrel();
+  public final DriveTrain driveTrain = new DriveTrain();
+  public final Intake intake = new Intake();
+  public final Shooter shooter = new Shooter();
+  public final Barrel barrel = new Barrel();
 
   // commands
-  private final LimeLightShoot limeLightShoot = new LimeLightShoot(driveTrain);
-  private final FlushBalls flushBalls = new FlushBalls(this.shooter, this.barrel, this.intake);
+  public final LimeLightShoot limeLightShoot = new LimeLightShoot(driveTrain, barrel, shooter);
+  public final LimeLightMove limeLightMove = new LimeLightMove(driveTrain, LimeLightConstants.MOVE_SETTINGS_DEFAULT);
+  public final LimeLightRotate limelightRotate = new LimeLightRotate(driveTrain, LimeLightConstants.ROT_SETTINGS_PRECISE);
 
-  private final LimeLightMove limeLightMove = new LimeLightMove(driveTrain, LimeLightConstants.MOVE_SETTINGS_DEFAULT);
-  private final LimeLightRotate limeLightRotate = new LimeLightRotate(driveTrain, LimeLightConstants.ROT_SETTINGS_PRECISE);
+  public final FlushBalls flushBalls = new FlushBalls(this.shooter, this.barrel, this.intake);
 
-  private final DefaultDrive defaultDrive = new DefaultDrive(driveTrain, controller);
+  public final DefaultDrive defaultDrive = new DefaultDrive(driveTrain, controller);
 
 
   /**
@@ -69,15 +69,18 @@ public class RobotContainer {
     JoystickButton rightTrigger = new JoystickButton(this.controller, XboxController.Axis.kRightTrigger.value);
     JoystickButton leftTrigger = new JoystickButton(this.controller, XboxController.Axis.kLeftTrigger.value);
 
-    xButton.whenHeld(new StartEndCommand(this.intake::run, this.intake::stop));
-    bButton.whenHeld(new StartEndCommand(this.barrel::run, this.barrel::stop));
-    aButton.whenHeld(this.flushBalls);
+    bButton.whenHeld(new StartEndCommand(this.intake::run, this.intake::stop));
+    yButton.whenHeld(new StartEndCommand(this.barrel::run, this.barrel::stop));
+    aButton.whileActiveOnce(this.flushBalls);
+    xButton.whileHeld(new StartEndCommand(this.shooter::run, this.shooter::stop));
+    
+
+    // aButton.whenHeld(this.flushBalls);
 
     // leftBumper.whileActiveOnce(this.limeLightRotate);
     // rightBumper.whileActiveOnce(this.limeLightMove);
 
-    leftTrigger.whileHeld(new StartEndCommand(this.shooter::run, this.shooter::stop));
-    rightTrigger.whileActiveOnce(this.limeLightShoot);
+    // rightTrigger.whileActiveOnce(this.limeLightShoot);
     // reverse controls = bumper left
     // boost speed = bumper right
     // aim and shoot = hold right trigger (if let go, cancel operation)
@@ -92,6 +95,6 @@ public class RobotContainer {
 
 
   public Command getAutonomousCommand() {
-    return new Autonomous(driveTrain);
+    return new Autonomous(this.driveTrain, this.intake, this.barrel, this.shooter);
   }
 }

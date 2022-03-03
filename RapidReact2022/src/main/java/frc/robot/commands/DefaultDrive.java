@@ -32,9 +32,9 @@ public class DefaultDrive extends CommandBase {
       speed = DriveConstants.BOOST_MOVE_SPEED;
     }
     
-    double moveY = this.controller.getX(Hand.kLeft)*speed*reverse; // left, right
-    double moveX = this.controller.getY(Hand.kLeft)*speed*-reverse; // forward, backward
-    double rotationZ = this.controller.getX(Hand.kRight)*reverse*DriveConstants.ROT_SPEED; // rotation
+    double moveY = -this.controller.getX(Hand.kLeft)*speed*reverse; // left, right
+    double moveX = -this.controller.getY(Hand.kLeft)*speed*-reverse; // forward, backward
+    double rotationZ = this.controller.getX(Hand.kRight)*DriveConstants.ROT_SPEED; // rotation
     this.driveTrain.move(moveX, moveY, rotationZ);
   }
   

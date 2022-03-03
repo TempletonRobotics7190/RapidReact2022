@@ -19,7 +19,7 @@ public final class Constants {
     public static final int BACK_LEFT_CONTROLLER = 4;
     public static final int BACK_RIGHT_CONTROLLER = 2;
     
-    public static final float ROT_SPEED = 0.4f;
+    public static final float ROT_SPEED = 0.35f;
 
     public static final float NORMAL_MOVE_SPEED = 0.50f;
     public static final float BOOST_MOVE_SPEED = 1.0f;
@@ -32,23 +32,23 @@ public final class Constants {
   public final class IntakeConstants {
     public static final int CONTROLLER = 2;
 
-    public static final float SPEED = 1.0f;
-    public static final float REVERSE_SPEED = -0.5f;
+    public static final float SPEED = -1.0f;
+    public static final float REVERSE_SPEED = 0.5f;
 
 
   }
   public static final class BarrelConstants {
     public static final int CONTROLLER = 3;
-    public static final float SPEED = -0.35f;
-    public static final float REVERSE_SPEED = 0.35f;
+    public static final float SPEED = 0.35f;
+    public static final float REVERSE_SPEED = -0.35f;
   }
 
   public static final class ShooterConstants {
     public static final int BIG_CONTROLLER = 0;
     public static final int SMALL_CONTROLLER = 1;
 
-    public static final float BIG_WHEEL_SPEED = -0.65f;
-    public static final float SMALL_WHEEL_SPEED = -0.65f;
+    public static final float BIG_WHEEL_SPEED = -0.55f;
+    public static final float SMALL_WHEEL_SPEED = -0.55f; // 55
 
     public static final float REVERSE_SPEED = 0.45f;
   }
@@ -92,10 +92,10 @@ public final class Constants {
 
       // within this threshold? move at small speed
       "small threshold", 10.0f,
-      "small speed", 0.1f,
+      "small speed", 0.2f,
 
       // within the stop threshold? stop
-      "stop threshold", 0.1f
+      "stop threshold", 0.2f
     ));
   }
 }

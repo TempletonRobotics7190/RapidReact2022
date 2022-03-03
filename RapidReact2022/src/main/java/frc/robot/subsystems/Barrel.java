@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.BarrelConstants;
 
-public class Barrel extends SubsystemBase {
+public class Barrel extends SubsystemBase implements SimpleSubsystem {
     
     private PWMSparkMax motor = new PWMSparkMax(BarrelConstants.CONTROLLER);
 

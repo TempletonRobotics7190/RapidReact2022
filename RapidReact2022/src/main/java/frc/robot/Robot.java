@@ -5,9 +5,17 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.RunSimpleSubsystem;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.SimpleSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,6 +27,10 @@ public class Robot extends TimedRobot {
   private Command autonomousCommand;
 
   private RobotContainer robotContainer;
+  private boolean pressedRight = false;
+  private boolean pressedLeft = false;
+  StartEndCommand intakeCMD;
+  StartEndCommand barrelCMD;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -26,9 +38,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    // Start the camera
+    CameraServer.getInstance().startAutomaticCapture();
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
+    intakeCMD = new StartEndCommand(robotContainer.intake::run, robotContainer.intake::stop);
+    barrelCMD = new StartEndCommand(robotContainer.barrel::run, robotContainer.barrel::stop);
+    
+    
   }
 
   /**
@@ -40,11 +58,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-
+    
 
 
     CommandScheduler.getInstance().run();
@@ -55,7 +74,9 @@ public class Robot extends TimedRobot {
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
@@ -85,7 +106,39 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    // Right Trigger
+    if (robotContainer.controller.getTriggerAxis(Hand.kRight) > 0.2 && !(pressedRight)) {
+      CommandScheduler.getInstance().schedule(robotContainer.limeLightShoot);
+      pressedRight = true;
+      // System.out.println("right trigger");
+
+    }
+    if (robotContainer.controller.getTriggerAxis(Hand.kRight) < 0.2 && pressedRight) {
+      CommandScheduler.getInstance().cancel(robotContainer.limeLightShoot);
+      pressedRight = false;
+      // System.out.println("cancel right");
+    }
+    // Left Trigger
+    if (robotContainer.controller.getTriggerAxis(Hand.kLeft) > 0.2 && !(pressedLeft)) {
+      CommandScheduler.getInstance().schedule(intakeCMD);
+      CommandScheduler.getInstance().schedule(barrelCMD);
+      pressedLeft = true;
+      // System.out.println("left trigger");
+
+    }
+    if (robotContainer.controller.getTriggerAxis(Hand.kLeft) < 0.2 && pressedLeft) {
+        if (intakeCMD != null) {
+          intakeCMD.cancel();
+        }
+        if (barrelCMD != null) {
+          barrelCMD.cancel();
+        }
+
+        pressedLeft = false;
+        // System.out.println("cancel left");
+    }
+  }
 
   @Override
   public void testInit() {

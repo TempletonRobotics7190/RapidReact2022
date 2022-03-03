@@ -11,7 +11,7 @@ public class DriveStop extends CommandBase {
         this.addRequirements(this.driveTrain);
     }
     @Override
-    public void initialize() {
+    public void execute() {
         this.driveTrain.move(0.0, 0.0, 0.0);
     }
 }

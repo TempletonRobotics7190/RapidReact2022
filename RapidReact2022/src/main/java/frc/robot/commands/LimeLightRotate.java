@@ -51,13 +51,13 @@ public class LimeLightRotate extends CommandBase {
             // offset is below threshold for moving at fractional speed
             if (Math.abs(xOffset) < this.smallThreshold) {
                 if (xOffset < 0)
-                    rotValue = -this.smallSpeed;
-                else 
                     rotValue = this.smallSpeed;
+                else 
+                    rotValue = -this.smallSpeed;
             }
             // move at fractional speed
             else {
-                rotValue = this.offsetFraction*xOffset;
+                rotValue = -this.offsetFraction*xOffset;
             }
 
             // have we found target

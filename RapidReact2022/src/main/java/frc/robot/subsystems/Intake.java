@@ -1,12 +1,12 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
-public class Intake extends SubsystemBase {
+public class Intake extends SubsystemBase implements SimpleSubsystem {
 
-    private Spark motor = new Spark(IntakeConstants.CONTROLLER);
+    private PWMSparkMax motor = new PWMSparkMax(IntakeConstants.CONTROLLER);
 
 
     public void run() {

@@ -42,17 +42,17 @@ public class LimeLightMove extends CommandBase {
         // offset is below threshold for moving at default speed
         if (Math.abs(yOffset) < this.smallThreshold) {
             if (yOffset < 0)
-                moveValue = this.smallSpeed;
-            else 
                 moveValue = -this.smallSpeed;
+            else 
+                moveValue = this.smallSpeed;
             
         }
         // move at default speed
         else {
             if (yOffset < 0)
-                moveValue = this.defaultSpeed;
-            else 
                 moveValue = -this.defaultSpeed;
+            else 
+                moveValue = this.defaultSpeed;
             
         }
 
